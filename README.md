@@ -1,8 +1,12 @@
 # Movie-pedia
 -create react app
 -css tailwing configure
+-Routing for app
 -Header
 -login form
+-sign in/ sign up form
+-form validation
+-useref hooks
 
 # features
 -Login/signUp 
