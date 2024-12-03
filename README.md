@@ -1,6 +1,8 @@
 # Movie-pedia
 -create react app
 -css tailwing configure
+-Header
+-login form
 
 # features
 -Login/signUp 
