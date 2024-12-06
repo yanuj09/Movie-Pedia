@@ -1,11 +1,18 @@
 import { useRef, useState } from "react";
 import Header from "./Header";
 import { checkValidData } from "../utils/validate";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword , updateProfile} from "firebase/auth";
+import {auth} from "../utils/firebase";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 
 const Login = () =>{
 
     const [isSignInForm, setIsSignInForm] = useState(true);
     const [errorMessage, setErrorMessage] = useState(null);
+    const navigate = useNavigate(); // to navigate to another page
+    const dispatch = useDispatch();
 
     // refering the the input value of email and password
     const email = useRef(null);
@@ -18,18 +25,87 @@ const Login = () =>{
         const checkName = !isSignInForm
         
         if(!isSignInForm){
+            // signup form validation
             const message = checkValidData (email.current.value, password.current.value, name.current.value , checkName);
-            setErrorMessage(message);
-        }
-        else{
-            const message = checkValidData (email.current.value, password.current.value, null, checkName);
             setErrorMessage(message);
 
         }
+        else{
+            // signin form validation
+            const message = checkValidData (email.current.value, password.current.value, null, checkName);
+            setErrorMessage(message);
+            if(message) return; 
+        }
+
+
+        //signIn / SignUp logic
+
+        if(!isSignInForm){
+            //signup logic
+            createUserWithEmailAndPassword(
+                auth,
+                email.current.value,
+                password.current.value
+            )  // api to create use 
+            .then((userCredential) =>{
+                const user = userCredential.user;
+                //updating the profile with name and photo
+                updateProfile(user, {
+                    displayName: name.current.value, photoURL: "https://avatars.githubusercontent.com/u/182401328?s=400&u=7c12d0ca31aed489d38c42890b7fcd1a8023cf27&v=4"
+                  }).then(() => {
+                    // Profile updated!
+                    const {uid, email, displayName, photoURL } = auth.currentUser;
+
+                    dispatch(
+                        addUser({
+                            uid: uid, 
+                            email: email , 
+                            displayName : displayName , 
+                            photoURL : photoURL 
+                    }));
+                    navigate("/browse");
+                    // ...
+                  }).catch((error) => {
+                    // An error occurred
+                    setErrorMessage(error.message);
+                    // ...
+                  });
+                
+                console.log(user);
+            })
+            .catch((error) =>{
+                const errorCode = error.code;
+                const errorMessagee = error.message;
+                setErrorMessage(errorCode + "-" + errorMessagee);
+            })
+
+            
+
+        }
+        else{
+            //sign IN logic
+            signInWithEmailAndPassword(
+                auth,
+                email.current.value,
+                password.current.value
+            )
+            .then((userCredential) =>{
+                const user = userCredential.user;
+                navigate("/browse")
+                console.log(user);
+            })
+            .catch((error) =>{
+                const errorCode = error.code;
+                const errorMessagee = error.message;
+                setErrorMessage(errorCode + "--" + errorMessagee);
+            })
+           
+        }
+        
 
         
 
-        //signIn / SignUp
+        
 
     }
 

@@ -7,6 +7,15 @@
 -sign in/ sign up form
 -form validation
 -useref hooks
+-firebase setup
+-Deploying our app to production
+-Create signup user account
+-Implemented Signin user Api
+-created redux store using userSlice
+- user sign in / signout app store should update
+-implemented sign out
+-updated profile
+-fetch movie from TMDB
 
 # features
 -Login/signUp 

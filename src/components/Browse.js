@@ -1,7 +1,12 @@
+import Header from "./Header";
+
 
 const Browse = () => {
     return (
-        <p>hellow</p>
+        <div>
+            <Header/>
+        </div>
+        
     )
 }
 export default Browse
