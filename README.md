@@ -20,8 +20,8 @@
  -SignUp user display name and profile picture update
  -if user is not logged in  redirect to login page / and if logged in redirect to browse page and  vice versa
 
-- unsubcribed to the onAuthStateChange call back
-- adding contants file
+- unsubcribed to the onAuthStateChange call back.
+- adding contants file.
 - Registered an TMDB API , create an APP  & get an access Token
 - Get data from TMDB & Now playing movie list
 -Custom hooks for Now playing movie 
