@@ -3,15 +3,15 @@ import Header from "./Header";
 import { checkValidData } from "../utils/validate";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword , updateProfile} from "firebase/auth";
 import {auth} from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { BGIMG, USER_AVATAR } from "../utils/constants";
 
 const Login = () =>{
 
     const [isSignInForm, setIsSignInForm] = useState(true);
     const [errorMessage, setErrorMessage] = useState(null);
-    const navigate = useNavigate(); // to navigate to another page
+    
     const dispatch = useDispatch();
 
     // refering the the input value of email and password
@@ -51,7 +51,7 @@ const Login = () =>{
                 const user = userCredential.user;
                 //updating the profile with name and photo
                 updateProfile(user, {
-                    displayName: name.current.value, photoURL: "https://avatars.githubusercontent.com/u/182401328?s=400&u=7c12d0ca31aed489d38c42890b7fcd1a8023cf27&v=4"
+                    displayName: name.current.value, photoURL: USER_AVATAR 
                   }).then(() => {
                     // Profile updated!
                     const {uid, email, displayName, photoURL } = auth.currentUser;
@@ -63,7 +63,7 @@ const Login = () =>{
                             displayName : displayName , 
                             photoURL : photoURL 
                     }));
-                    navigate("/browse");
+                    
                     // ...
                   }).catch((error) => {
                     // An error occurred
@@ -91,7 +91,7 @@ const Login = () =>{
             )
             .then((userCredential) =>{
                 const user = userCredential.user;
-                navigate("/browse")
+                
                 console.log(user);
             })
             .catch((error) =>{
@@ -120,7 +120,7 @@ const Login = () =>{
             <Header/>
 
             <div className="absolute">
-                <img src="https://assets.nflxext.com/ffe/siteui/vlv3/2bcf01ee-7ef6-4930-b0d5-c6863853c461/web/IN-en-20241125-TRIFECTA-perspective_a47db038-756f-4f26-b1f7-cfc882b98746_small.jpg" 
+                <img src= {BGIMG} 
                 alt="bgImg"
                 ></img>
 
