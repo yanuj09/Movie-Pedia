@@ -15,3 +15,7 @@ export const API_OPTIONS = {
 export const PLAYING_MOVIE = "https://api.themoviedb.org/3/movie/now_playing?page=1";
 
 export const MPoster_URL = "https://image.tmdb.org/t/p/w500/";
+
+export const SUPPORTED_LANGUAGE = [{identifier: "en" , name: "English"},
+  {identifier:"hindi" , name: "हिन्दी"}, {identifier: "marathi" , name: "मराठी"}
+]
