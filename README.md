@@ -38,6 +38,10 @@
 -tmdb Image Cdn Url
 - Made the Browse page amazing with tailwind 
 - created custom hooks (usePopularMovies, useTopRatedMovies etc)
+- GPT search page
+- GPT search bar
+- (Bonsus feature) build the multi Lingual page
+- Integrate GPT APIs
 
 
 
